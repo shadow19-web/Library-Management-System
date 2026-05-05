@@ -1,8 +1,5 @@
 <?php
 session_start();
-require_once '../../../config/smtp_config.php';
-require_once '../../../helpers/cryptography_process.php';
-
 // if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Librarian') {
 //     header("Location: ../../../auth/login.php");
 //     exit();
@@ -29,27 +26,27 @@ require_once '../../../helpers/cryptography_process.php';
             <span>LibroTech</span>
         </div>
         <nav class="sidebar-menu">
-            <a href="#" class="menu-item active">
+            <a href="dashboard_librarian.php" class="menu-item active">
                 <i class="fas fa-th-large"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/book_cataloging.php" class="menu-item">
                 <i class="fas fa-book"></i>
                 <span>Book Cataloging</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/circulation.php" class="menu-item">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Circulation</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/manage_members.php" class="menu-item">
                 <i class="fas fa-user-graduate"></i>
                 <span>Member Management</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/notification.php" class="menu-item">
                 <i class="fas fa-bell"></i>
                 <span>Notifications</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/statistics.php" class="menu-item">
                 <i class="fas fa-chart-line"></i>
                 <span>Statistics</span>
             </a>
@@ -64,11 +61,11 @@ require_once '../../../helpers/cryptography_process.php';
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Top Header -->
+        <!-- Top Header (Mirrored from Admin) -->
         <header class="top-header animate-fade">
             <div class="header-search">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Search for books or records...">
+                <input type="text" placeholder="Search books, members, or transactions...">
             </div>
             <div class="header-user">
                 <div class="user-info">
@@ -87,22 +84,22 @@ require_once '../../../helpers/cryptography_process.php';
         <!-- Dashboard Container -->
         <div class="dashboard-container">
             <div class="welcome-section animate-up delay-1">
-                <h1>Welcome, <?php echo $_SESSION['username'] ?? 'Librarian'; ?>!</h1>
-                <p>Efficiently manage your library assets and circulation records.</p>
+                <h1>Librarian Command Center</h1>
+                <p>Manage inventory and circulation with the professional LibroTech suite.</p>
             </div>
 
-            <!-- Stats Grid -->
+            <!-- Stats Grid (Mirrored Layout) -->
             <div class="stats-grid">
-                <div class="stat-card animate-up delay-2">
+                <div class="glass-card stat-card animate-up delay-2">
                     <div class="stat-details">
-                        <h3>Books Cataloged</h3>
+                        <h3>Total Inventory</h3>
                         <span class="number">8,124</span>
                     </div>
                     <div class="stat-icon icon-books">
                         <i class="fas fa-book"></i>
                     </div>
                 </div>
-                <div class="stat-card animate-up delay-3">
+                <div class="glass-card stat-card animate-up delay-3">
                     <div class="stat-details">
                         <h3>Active Borrows</h3>
                         <span class="number">1,120</span>
@@ -111,16 +108,16 @@ require_once '../../../helpers/cryptography_process.php';
                         <i class="fas fa-exchange-alt"></i>
                     </div>
                 </div>
-                <div class="stat-card animate-up delay-4">
+                <div class="glass-card stat-card animate-up delay-4">
                     <div class="stat-details">
-                        <h3>Return Due Today</h3>
+                        <h3>Due Today</h3>
                         <span class="number">42</span>
                     </div>
                     <div class="stat-icon icon-users">
                         <i class="fas fa-clock"></i>
                     </div>
                 </div>
-                <div class="stat-card animate-up delay-5">
+                <div class="glass-card stat-card animate-up delay-5">
                     <div class="stat-details">
                         <h3>Overdue Books</h3>
                         <span class="number">18</span>
@@ -131,13 +128,13 @@ require_once '../../../helpers/cryptography_process.php';
                 </div>
             </div>
 
-            <!-- Content Grid -->
+            <!-- Content Grid (Mirrored from Admin) -->
             <div class="content-grid">
-                <!-- Recent Circulation -->
-                <div class="data-card animate-up delay-6">
+                <!-- Recent Activity -->
+                <div class="glass-card data-card animate-up delay-6">
                     <div class="card-header">
-                        <h2>Recent Circulation Records</h2>
-                        <a href="#" class="view-all">View All History</a>
+                        <h2>Recent Circulation Activity</h2>
+                        <a href="sidebar/circulation.php" class="view-all">View All History</a>
                     </div>
                     <div class="activity-list">
                         <div class="activity-item">
@@ -145,56 +142,56 @@ require_once '../../../helpers/cryptography_process.php';
                                 <i class="fas fa-arrow-up" style="color: #10b981;"></i>
                             </div>
                             <div class="activity-info">
-                                <span class="activity-title">Return: Data Structures</span>
-                                <span class="activity-desc">Returned by <strong>Student A</strong></span>
+                                <span class="activity-title">Book Returned</span>
+                                <span class="activity-desc">"Clean Code" returned by <strong>John Doe</strong></span>
                             </div>
-                            <div class="activity-time">Just now</div>
+                            <div class="activity-time">5 mins ago</div>
                         </div>
                         <div class="activity-item">
                             <div class="activity-img">
                                 <i class="fas fa-arrow-down" style="color: #f59e0b;"></i>
                             </div>
                             <div class="activity-info">
-                                <span class="activity-title">Borrow: Python Basics</span>
-                                <span class="activity-desc">Borrowed by <strong>Student B</strong></span>
+                                <span class="activity-title">Book Borrowed</span>
+                                <span class="activity-desc">"Modern JS" issued to <strong>Jane Smith</strong></span>
                             </div>
-                            <div class="activity-time">10 mins ago</div>
+                            <div class="activity-time">25 mins ago</div>
                         </div>
                         <div class="activity-item">
                             <div class="activity-img">
-                                <i class="fas fa-arrow-down" style="color: #f59e0b;"></i>
+                                <i class="fas fa-user-plus" style="color: #3b82f6;"></i>
                             </div>
                             <div class="activity-info">
-                                <span class="activity-title">Borrow: Modern PHP</span>
-                                <span class="activity-desc">Borrowed by <strong>Student C</strong></span>
+                                <span class="activity-title">New Member Registered</span>
+                                <span class="activity-desc"><strong>Alice Johnson</strong> joined the library</span>
                             </div>
                             <div class="activity-time">1 hour ago</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Overdue Reminders -->
-                <div class="data-card animate-up delay-6">
+                <!-- Right Column: Quick Status -->
+                <div class="glass-card data-card animate-up delay-6">
                     <div class="card-header">
-                        <h2>Overdue Reminders</h2>
-                        <a href="#" class="view-all">Notify All</a>
+                        <h2>Upcoming Returns</h2>
+                        <a href="#" class="view-all">See Full List</a>
                     </div>
                     <div class="activity-list">
                         <div class="activity-item">
-                            <div class="user-avatar" style="background: #ef4444;">JD</div>
+                            <div class="user-avatar" style="background: #f59e0b;">SM</div>
                             <div class="activity-info">
-                                <span class="activity-title">John Doe</span>
-                                <span class="activity-desc">3 days overdue: "Algebra"</span>
+                                <span class="activity-title">Sam Miller</span>
+                                <span class="activity-desc">Return: Advanced PHP</span>
                             </div>
-                            <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Remind</button>
+                            <span class="badge badge-pending">Due Today</span>
                         </div>
                         <div class="activity-item">
-                            <div class="user-avatar" style="background: #ef4444;">SM</div>
+                            <div class="user-avatar" style="background: #3b82f6;">AL</div>
                             <div class="activity-info">
-                                <span class="activity-title">Sarah Meyer</span>
-                                <span class="activity-desc">1 day overdue: "Calculus"</span>
+                                <span class="activity-title">Anna Lee</span>
+                                <span class="activity-desc">Return: Database Design</span>
                             </div>
-                            <button class="btn btn-primary" style="padding: 5px 10px; font-size: 12px;">Remind</button>
+                            <span class="badge badge-pending">Due Today</span>
                         </div>
                     </div>
                 </div>

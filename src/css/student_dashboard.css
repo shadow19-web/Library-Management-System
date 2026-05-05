@@ -1,38 +1,154 @@
-/* ===== Student Dashboard Theme ===== */
+/* ===== Student Dashboard Theme (Premium Readability Audit Fix) ===== */
 @import 'dashboard.css';
 
 :root {
-    --primary-color: #3B82F6; /* Vibrant Blue */
-    --primary-dark: #1E3A8A;
-    --primary-light: #93C5FD;
-    --accent-gold: #FCD34D;
+    --primary-color: #6366f1; /* Professional Indigo */
+    --primary-dark: #312e81;
+    --primary-light: #818cf8;
+    --accent-indigo: #c7d2fe;
+    --text-dark: #0f172a; /* Deep Navy - Essential for Readability */
+    --text-main: #1e293b;
+    --text-muted: #475569; /* Darker Muted for Labels */
+    --border-light: #e2e8f0;
+    --bg-main: #f8fafc;
 }
 
-/* Override Sidebar to use Student Colors */
+/* Core Readability Overrides */
+body.dashboard-body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4, .number {
+    color: var(--text-dark) !important;
+    font-weight: 700;
+}
+
+p, .breadcrumb, span:not(.number):not(.badge) {
+    color: var(--text-muted);
+}
+
+/* Sidebar - Enhanced Visibility */
 .sidebar {
-    background: var(--primary-dark);
+    background: #1e1b4b; /* Deep Indigo-Navy */
+}
+
+.sidebar-header span {
+    color: white !important;
+}
+
+.menu-item {
+    color: #cbd5e1 !important; /* Brighter for readability on dark bg */
 }
 
 .menu-item:hover, .menu-item.active {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.menu-item.active {
     border-left: 4px solid var(--primary-light);
+    color: white !important;
 }
 
-.user-avatar {
-    background: var(--primary-color);
+/* Top Header Readability */
+.top-header {
+    background: white;
+    border-bottom: 1px solid var(--border-light);
 }
 
-/* Stat Card Overrides */
-.icon-books { background: rgba(59, 130, 246, 0.1); color: var(--primary-color); }
-.icon-users { background: rgba(16, 185, 129, 0.1); color: #10b981; }
-.icon-borrow { background: rgba(245, 158, 11, 0.1); color: #f59e0b; }
-.icon-overdue { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
-
-.view-all {
-    color: var(--primary-color);
+.header-search i {
+    color: var(--text-muted);
 }
 
-/* Student Specific Components */
+.header-search input {
+    color: var(--text-dark) !important;
+}
+
+.user-name {
+    color: var(--text-dark) !important;
+    font-weight: 600;
+}
+
+/* Buttons - Modern Flat Style */
+.btn-reserve, .btn-save, .btn-primary, .btn-save-profile {
+    background: var(--primary-color) !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(99, 102, 241, 0.3);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.btn-reserve:hover, .btn-save:hover, .btn-primary:hover {
+    background: var(--primary-dark) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4);
+}
+
+/* Form Controls - High Contrast */
+.filter-group label, .form-group label {
+    color: var(--text-dark) !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem;
+    opacity: 1 !important;
+}
+
+select, input:not([type="checkbox"]) {
+    border: 1px solid var(--border-light) !important;
+    color: var(--text-dark) !important;
+    background: white !important;
+}
+
+/* Data Table & List Polish */
+.loans-table th, .users-table th, .catalog-table th {
+    color: var(--text-dark) !important;
+    background: #f1f5f9;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.book-title, .user-name, .activity-title {
+    color: var(--text-dark) !important;
+    font-weight: 600;
+}
+
+/* Card Refinements */
+.glass-card, .data-card, .loans-container, .book-card, .profile-card, .details-card {
+    background: white !important;
+    border: 1px solid var(--border-light) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
 .recommendation-card {
-    background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-    color: white;
+    background: linear-gradient(135deg, #6366f1, #312e81) !important;
+    border: none !important;
+    color: white !important;
+    box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
+}
+
+.recommendation-card h2, .recommendation-card span, .recommendation-card p {
+    color: white !important;
+}
+
+/* Notification unread state fix */
+.notif-item.unread {
+    background: #f5f3ff !important; /* Light indigo tint */
+    border-left: 4px solid var(--primary-color) !important;
+}
+
+.notif-title {
+    color: var(--text-dark) !important;
+}
+
+/* Profile Specific Fixes */
+.profile-card h2 {
+    color: var(--text-dark) !important;
+}
+
+.stat-box h4 {
+    color: var(--primary-color) !important;
 }

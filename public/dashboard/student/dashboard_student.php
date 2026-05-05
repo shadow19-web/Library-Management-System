@@ -1,7 +1,7 @@
 <?php
 session_start();
 // if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'Student') {
-//     header("Location: ../../../public/studentLogin.php");
+//     header("Location: ../../../auth/login.php");
 //     exit();
 // }
 ?>
@@ -26,27 +26,27 @@ session_start();
             <span>LibroTech</span>
         </div>
         <nav class="sidebar-menu">
-            <a href="#" class="menu-item active">
+            <a href="dashboard_student.php" class="menu-item active">
                 <i class="fas fa-th-large"></i>
                 <span>My Dashboard</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/search_catalog.php" class="menu-item">
                 <i class="fas fa-search"></i>
                 <span>Search Catalog</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/my_barrowed.php" class="menu-item">
                 <i class="fas fa-book-reader"></i>
                 <span>My Borrowed</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/saved_books.php" class="menu-item">
                 <i class="fas fa-bookmark"></i>
                 <span>Saved Books</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/notification.php" class="menu-item">
                 <i class="fas fa-bell"></i>
                 <span>Notifications</span>
             </a>
-            <a href="#" class="menu-item">
+            <a href="sidebar/my_profile.php" class="menu-item">
                 <i class="fas fa-user-circle"></i>
                 <span>My Profile</span>
             </a>
@@ -61,16 +61,16 @@ session_start();
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Top Header -->
+        <!-- Top Header (Admin Mirror) -->
         <header class="top-header animate-fade">
             <div class="header-search">
                 <i class="fas fa-search"></i>
-                <input type="text" placeholder="Find your next great read...">
+                <input type="text" placeholder="Find books, authors, or categories...">
             </div>
             <div class="header-user">
                 <div class="user-info">
                     <span class="user-name"><?php echo $_SESSION['username'] ?? 'Student User'; ?></span>
-                    <span class="user-role">Undergraduate</span>
+                    <span class="user-role">Student</span>
                 </div>
                 <div class="user-avatar">
                     <?php 
@@ -84,102 +84,96 @@ session_start();
         <!-- Dashboard Container -->
         <div class="dashboard-container">
             <div class="welcome-section animate-up delay-1">
-                <h1>Hello, <?php echo $_SESSION['username'] ?? 'Student'; ?>!</h1>
-                <p>Welcome back to your digital library. What would you like to read today?</p>
+                <h1>Welcome Back, <?php echo $_SESSION['username'] ?? 'Student'; ?>!</h1>
+                <p>Track your reading progress and discover new academic resources.</p>
             </div>
 
-            <!-- Stats Grid -->
+            <!-- Stats Grid (Mirrored) -->
             <div class="stats-grid">
-                <div class="stat-card animate-up delay-2">
+                <div class="glass-card stat-card animate-up delay-2">
                     <div class="stat-details">
-                        <h3>Borrowed Books</h3>
+                        <h3>Borrowed</h3>
                         <span class="number">04</span>
                     </div>
                     <div class="stat-icon icon-books">
                         <i class="fas fa-book-open"></i>
                     </div>
                 </div>
-                <div class="stat-card animate-up delay-3">
-                    <div class="stat-details">
-                        <h3>Returned All Time</h3>
-                        <span class="number">12</span>
-                    </div>
-                    <div class="stat-icon icon-users">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                </div>
-                <div class="stat-card animate-up delay-4">
+                <div class="glass-card stat-card animate-up delay-3">
                     <div class="stat-details">
                         <h3>Due Soon</h3>
                         <span class="number">01</span>
                     </div>
-                    <div class="stat-icon icon-borrow">
+                    <div class="stat-icon icon-warning">
                         <i class="fas fa-clock"></i>
                     </div>
                 </div>
-                <div class="stat-card animate-up delay-5">
+                <div class="glass-card stat-card animate-up delay-4">
                     <div class="stat-details">
-                        <h3>Pending Penalties</h3>
+                        <h3>Saved Books</h3>
+                        <span class="number">12</span>
+                    </div>
+                    <div class="stat-icon icon-success">
+                        <i class="fas fa-bookmark"></i>
+                    </div>
+                </div>
+                <div class="glass-card stat-card animate-up delay-5">
+                    <div class="stat-details">
+                        <h3>Fines</h3>
                         <span class="number">₱0.00</span>
                     </div>
-                    <div class="stat-icon icon-overdue">
+                    <div class="stat-icon icon-danger">
                         <i class="fas fa-file-invoice-dollar"></i>
                     </div>
                 </div>
             </div>
 
-            <!-- Content Grid -->
+            <!-- Content Grid (Admin Mirror) -->
             <div class="content-grid">
-                <!-- Currently Reading -->
-                <div class="data-card animate-up delay-6">
+                <!-- Left: Currently Borrowed -->
+                <div class="glass-card data-card animate-up delay-6">
                     <div class="card-header">
-                        <h2>Currently Reading</h2>
-                        <a href="#" class="view-all">View All Borrowed</a>
+                        <h2>Currently Borrowed</h2>
+                        <a href="sidebar/my_barrowed.php" class="view-all">See All History</a>
                     </div>
                     <div class="activity-list">
                         <div class="activity-item">
-                            <div class="activity-img">
-                                <i class="fas fa-book"></i>
-                            </div>
                             <div class="activity-info">
                                 <span class="activity-title">Introduction to Algorithms</span>
-                                <span class="activity-desc">Due on: <strong>May 15, 2026</strong></span>
+                                <span class="activity-desc">Return by: <strong>May 15, 2026</strong></span>
                             </div>
-                            <div class="activity-time" style="color: #ef4444;">3 Days Left</div>
+                            <span class="badge" style="background: #fee2e2; color: #ef4444; font-size: 11px; padding: 4px 10px; border-radius: 20px;">3 Days Left</span>
                         </div>
                         <div class="activity-item">
-                            <div class="activity-img">
-                                <i class="fas fa-book"></i>
-                            </div>
                             <div class="activity-info">
                                 <span class="activity-title">Modern Web Design</span>
-                                <span class="activity-desc">Due on: <strong>May 20, 2026</strong></span>
+                                <span class="activity-desc">Return by: <strong>May 20, 2026</strong></span>
                             </div>
-                            <div class="activity-time">8 Days Left</div>
+                            <span class="badge" style="background: #f1f5f9; color: #64748b; font-size: 11px; padding: 4px 10px; border-radius: 20px;">8 Days Left</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Recommended Section -->
-                <div class="data-card recommendation-card animate-up delay-6">
+                <!-- Right: Recommendation (Special Indigo Card) -->
+                <div class="glass-card data-card recommendation-card animate-up delay-6">
                     <div class="card-header">
-                        <h2 style="color: white;">Recommended For You</h2>
+                        <h2 style="color: white;">Picked For You</h2>
                     </div>
-                    <p style="font-size: 13px; opacity: 0.9; margin-bottom: 20px;">Based on your interest in Technology and Engineering.</p>
+                    <p style="font-size: 13px; opacity: 0.9; margin-bottom: 20px;">Personalized academic suggestions.</p>
                     <div class="activity-list">
                         <div class="activity-item" style="border-bottom-color: rgba(255,255,255,0.1);">
                             <div class="activity-info">
-                                <span class="activity-title" style="color: white;">Clean Code</span>
-                                <span class="activity-desc" style="color: rgba(255,255,255,0.7);">Robert C. Martin</span>
+                                <span class="activity-title">Clean Code</span>
+                                <span class="activity-desc">Robert C. Martin</span>
                             </div>
-                            <button class="btn btn-outline" style="color: white; border-color: white; padding: 5px 10px; font-size: 11px;">Reserve</button>
+                            <button class="btn" style="background: white; color: #6366f1; padding: 5px 12px; font-size: 11px; border: none; border-radius: 6px; font-weight: 600;">Reserve</button>
                         </div>
-                        <div class="activity-item" style="border-bottom: none;">
+                        <div class="activity-item" style="border: none;">
                             <div class="activity-info">
-                                <span class="activity-title" style="color: white;">The Pragmatic Programmer</span>
-                                <span class="activity-desc" style="color: rgba(255,255,255,0.7);">Andrew Hunt</span>
+                                <span class="activity-title">The Pragmatic Programmer</span>
+                                <span class="activity-desc">Andrew Hunt</span>
                             </div>
-                            <button class="btn btn-outline" style="color: white; border-color: white; padding: 5px 10px; font-size: 11px;">Reserve</button>
+                            <button class="btn" style="background: white; color: #6366f1; padding: 5px 12px; font-size: 11px; border: none; border-radius: 6px; font-weight: 600;">Reserve</button>
                         </div>
                     </div>
                 </div>
