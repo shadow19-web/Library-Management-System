@@ -1,0 +1,125 @@
+/* ===== Librarian Dashboard Theme (Premium Readability Audit Fix) ===== */
+@import 'dashboard.css';
+
+:root {
+    --primary-color: #f59e0b; /* Vibrant Amber */
+    --primary-dark: #b45309;
+    --primary-light: #fbbf24;
+    --accent-gold: #fcd34d;
+    --text-dark: #0f172a; /* Deep Navy - Essential for Readability */
+    --text-main: #1e293b;
+    --text-muted: #475569; /* Darker Muted for Labels */
+    --border-light: #e2e8f0;
+    --bg-main: #f8fafc;
+}
+
+/* Core Readability Overrides */
+body.dashboard-body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: 'Poppins', sans-serif;
+}
+
+h1, h2, h3, h4, .number {
+    color: var(--text-dark) !important;
+    font-weight: 700;
+}
+
+p, .breadcrumb, span:not(.number):not(.badge) {
+    color: var(--text-muted);
+}
+
+/* Sidebar - Professional Navy (Admin Sync) */
+.sidebar {
+    background: #0f172a;
+}
+
+.menu-item {
+    color: #94a3b8;
+}
+
+.menu-item.active {
+    background: rgba(245, 158, 11, 0.1);
+    color: var(--primary-light);
+    border-left: 4px solid var(--primary-color);
+}
+
+.menu-item:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Top Header Readability */
+.top-header {
+    background: white;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.header-search input {
+    color: var(--text-dark);
+}
+
+.user-name {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* Buttons - Removing Clunky Borders */
+.btn-primary {
+    background: var(--primary-color);
+    color: white;
+    border: none !important;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.3);
+    transition: all 0.2s;
+}
+
+.btn-primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.4);
+}
+
+/* Form Controls - High Contrast */
+.filter-group label {
+    color: var(--text-dark) !important;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+select, input:not([type="checkbox"]) {
+    border: 1px solid var(--border-light) !important;
+    color: var(--text-dark) !important;
+    background: white !important;
+}
+
+/* Data Table Polish */
+.catalog-table th, .circ-table th, .users-table th {
+    color: var(--text-dark) !important;
+    background: #f1f5f9;
+    border-bottom: 2px solid var(--border-light);
+}
+
+.book-title, .user-name {
+    color: var(--text-dark) !important;
+}
+
+/* Card Refinements */
+.glass-card, .stat-card, .data-card, .catalog-table-container {
+    background: white !important;
+    border: 1px solid var(--border-light) !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.stat-mini-card {
+    background: white !important;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+/* Notification unread state fix */
+.notif-item.unread {
+    background: #fffbeb !important; /* Very light amber tint */
+    border-left: 4px solid var(--primary-color) !important;
+}
