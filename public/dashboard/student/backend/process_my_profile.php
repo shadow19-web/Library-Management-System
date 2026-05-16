@@ -53,18 +53,25 @@ try {
     $notif_stmt->execute([$user_id, $last_view, $last_view, $last_view]);
     $unread_count = $notif_stmt->fetchColumn();
 
-    // Add manual notifications from the notifications table
+    $unread_count = 0;
     $manual_stmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0");
     $manual_stmt->execute([$user_id]);
     $unread_count += $manual_stmt->fetchColumn();
 
-    $full_name = decryptionData($student_data['first_name']) . " " . decryptionData($student_data['last_name']);
-    $initials = strtoupper(substr(decryptionData($student_data['first_name']), 0, 1) . substr(decryptionData($student_data['last_name']), 0, 1));
-    $decrypted_username = decryptionData($student_data['username']);
-    $decrypted_email = decryptionData($student_data['email']);
+    // Safe Decryption Fallbacks
+    $f_name = decryptionData($student_data['first_name']) ?: $student_data['username'];
+    $l_name = decryptionData($student_data['last_name']) ?: "";
+    $full_name = trim($f_name . " " . $l_name);
+    $initials = strtoupper(substr($f_name, 0, 1) . ($l_name ? substr($l_name, 0, 1) : ""));
+    
+    $decrypted_username = decryptionData($student_data['username']) ?: $student_data['username'];
+    $decrypted_email = decryptionData($student_data['email']) ?: $student_data['email'];
+
 } catch (PDOException $e) {
     $unread_count = 0;
     $full_name = "Student User";
     $initials = "ST";
+    $decrypted_username = "User";
+    $decrypted_email = "Not available";
 }
 ?>

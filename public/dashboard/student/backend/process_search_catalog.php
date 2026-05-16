@@ -10,17 +10,28 @@ include __DIR__ . '/../../../../helpers/cryptography_process.php';
 
 $user_id = $_SESSION['user_id'];
 
-// Get unread notification count for sidebar
+// Default values to prevent warnings
+$full_name = "Student User";
+$initials = "ST";
 $unread_count = 0;
+
 try {
-    $user_stmt = $pdo->prepare("SELECT last_notif_view, first_name, last_name FROM users WHERE user_id = ?");
+    // 1. Fetch User Data (Simple and first)
+    $user_stmt = $pdo->prepare("SELECT last_notif_view, first_name, last_name, username FROM users WHERE user_id = ?");
     $user_stmt->execute([$user_id]);
     $user_data = $user_stmt->fetch(PDO::FETCH_ASSOC);
-    $last_view = $user_data['last_notif_view'] ?: '1970-01-01 00:00:00';
 
-    $full_name = decryptionData($user_data['first_name']) . " " . decryptionData($user_data['last_name']);
-    $initials = strtoupper(substr(decryptionData($user_data['first_name']), 0, 1) . substr(decryptionData($user_data['last_name']), 0, 1));
+    if ($user_data) {
+        $f_name = decryptionData($user_data['first_name']) ?: $user_data['username'];
+        $l_name = decryptionData($user_data['last_name']) ?: "";
+        $full_name = trim($f_name . " " . $l_name);
+        $initials = strtoupper(substr($f_name, 0, 1) . ($l_name ? substr($l_name, 0, 1) : ""));
+        $last_view = $user_data['last_notif_view'] ?: '1970-01-01 00:00:00';
+    } else {
+        $last_view = '1970-01-01 00:00:00';
+    }
 
+    // 2. Notification count
     $notif_stmt = $pdo->prepare("SELECT COUNT(*) FROM borrowings 
         WHERE user_id = ? 
         AND (
@@ -31,17 +42,16 @@ try {
     $notif_stmt->execute([$user_id, $last_view, $last_view, $last_view]);
     $unread_count = $notif_stmt->fetchColumn();
 
-    // Add manual notifications from the notifications table
     $manual_stmt = $pdo->prepare("SELECT COUNT(*) FROM notifications WHERE user_id = ? AND is_read = 0");
     $manual_stmt->execute([$user_id]);
     $unread_count += $manual_stmt->fetchColumn();
 
-    // Add notification for new books added since last view
     $new_books_stmt = $pdo->prepare("SELECT COUNT(*) FROM books WHERE created_at > ?");
     $new_books_stmt->execute([$last_view]);
     $unread_count += $new_books_stmt->fetchColumn();
+
 } catch (PDOException $e) {
-    $unread_count = 0;
+    // Keep defaults if query fails
 }
 
 // Fetch categories for filter

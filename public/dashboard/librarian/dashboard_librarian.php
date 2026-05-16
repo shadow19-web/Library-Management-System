@@ -258,7 +258,9 @@ function getTimeAgo($timestamp)
                                 <div class="activity-item">
                                     <?php if ($activity['type'] === 'circulation'):
                                         $is_return = !is_null($activity['return_date']);
-                                        $student_name = decryptionData($activity['first_name']) . " " . decryptionData($activity['last_name']);
+                                        $f_name = decryptionData($activity['first_name']) ?: "User";
+                                        $l_name = decryptionData($activity['last_name']) ?: "";
+                                        $student_name = trim($f_name . " " . $l_name);
                                     ?>
                                         <div class="activity-img">
                                             <?php if ($is_return): ?>
@@ -272,8 +274,11 @@ function getTimeAgo($timestamp)
                                             <span class="activity-desc"><?php echo $is_return ? 'Returned' : 'Borrowed'; ?> by <strong><?php echo $student_name; ?></strong></span>
                                         </div>
                                     <?php else:
-                                        $admin_display = decryptionData($activity['first_name']) . " " . decryptionData($activity['last_name']);
-                                        if (empty(trim($admin_display))) {
+                                        $f_name = decryptionData($activity['first_name']);
+                                        $l_name = decryptionData($activity['last_name']);
+                                        $admin_display = trim($f_name . " " . $l_name);
+                                        
+                                        if (empty($admin_display)) {
                                             $admin_display = $activity['admin_role'] ?: 'Administrator';
                                         }
                                     ?>
@@ -306,9 +311,10 @@ function getTimeAgo($timestamp)
                             <div class="activity-item">No overdue reminders.</div>
                         <?php else: ?>
                             <?php foreach ($overdue_reminders as $reminder):
-                                $fname = decryptionData($reminder['first_name']);
-                                $lname = decryptionData($reminder['last_name']);
-                                $initials = strtoupper(substr($fname, 0, 1) . substr($lname, 0, 1));
+                                $fname = decryptionData($reminder['first_name']) ?: "User";
+                                $lname = decryptionData($reminder['last_name']) ?: "";
+                                $full_name_display = trim($fname . " " . $lname);
+                                $initials = strtoupper(substr($fname, 0, 1) . ($lname ? substr($lname, 0, 1) : ""));
                                 $due_date = new DateTime($reminder['due_date']);
                                 $today = new DateTime();
                                 $days_overdue = $today->diff($due_date)->days;

@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         exit();
     }
 
-    // Encrypt username to match database storage
+    // Try both encrypted and plain username for maximum compatibility
     $encryptedUser = encryptionData($inputUser);
-
-    $sql = "SELECT * FROM users WHERE username = ? AND role = 'Librarian'";
+    
+    $sql = "SELECT * FROM users WHERE (username = ? OR username = ?) AND role = 'Librarian'";
     $stmt = $pdo->prepare($sql);
-    $stmt->execute([$encryptedUser]);
+    $stmt->execute([$encryptedUser, $inputUser]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($user && password_verify($inputPassword, $user['password'])) {
@@ -103,6 +103,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             require_once '../helpers/sms_helper.php';
             
             $phoneNumber = decryptionData($user['phone_number']);
+            
+            // Fallback: If decryption fails, use the raw number from DB
+            if (!$phoneNumber || empty($phoneNumber)) {
+                $phoneNumber = $user['phone_number'];
+            }
             $smsContent = "Your LibroTech Librarian verification code is: $otpCode. It will expire in 5 minutes.";
             
             $smsResult = sendUniSMS($phoneNumber, $smsContent);

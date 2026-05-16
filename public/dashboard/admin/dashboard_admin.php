@@ -148,7 +148,9 @@ require_once __DIR__ . '/backend/process_dashboard_admin.php';
                             <?php foreach ($recent_activities as $activity): ?>
                                 <div class="activity-item">
                                     <?php if ($activity['type'] === 'user_registration'):
-                                        $name = decryptionData($activity['first_name']) . " " . decryptionData($activity['last_name']);
+                                        $f_name = decryptionData($activity['first_name']) ?: "New";
+                                        $l_name = decryptionData($activity['last_name']) ?: "User";
+                                        $name = trim($f_name . " " . $l_name);
                                     ?>
                                         <div class="activity-img">
                                             <i class="fas fa-user-plus" style="color: #3b82f6;"></i>
@@ -159,9 +161,15 @@ require_once __DIR__ . '/backend/process_dashboard_admin.php';
                                         </div>
                                     <?php else:
                                         if ($activity['admin_role'] === 'Librarian') {
-                                            $admin_display = decryptionData($activity['first_name']) . " " . decryptionData($activity['last_name']);
+                                            $f_name = decryptionData($activity['first_name']);
+                                            $l_name = decryptionData($activity['last_name']);
+                                            $admin_display = trim($f_name . " " . $l_name);
                                         } else {
                                             $admin_display = $activity['admin_role'] ?: 'Administrator';
+                                        }
+                                        
+                                        if (empty($admin_display)) {
+                                            $admin_display = 'Administrator';
                                         }
                                     ?>
                                         <div class="activity-img">
@@ -194,9 +202,10 @@ require_once __DIR__ . '/backend/process_dashboard_admin.php';
                             <div class="activity-item">No pending approvals.</div>
                         <?php else: ?>
                             <?php foreach ($pending_users as $user):
-                                $fname = decryptionData($user['first_name']);
-                                $lname = decryptionData($user['last_name']);
-                                $initials = strtoupper(substr($fname, 0, 1) . substr($lname, 0, 1));
+                                $fname = decryptionData($user['first_name']) ?: "User";
+                                $lname = decryptionData($user['last_name']) ?: "";
+                                $full_name_display = trim($fname . " " . $lname);
+                                $initials = strtoupper(substr($fname, 0, 1) . ($lname ? substr($lname, 0, 1) : ""));
                                 $role = $user['role'] ?? $user['userRole'] ?? 'Student';
                             ?>
                                 <div class="activity-item">

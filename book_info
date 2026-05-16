@@ -1,0 +1,53 @@
+Book Title: Clean Code
+Author: Robert C. Martin
+Description: A programming guide that teaches developers how to write clean, readable, maintainable, and efficient code using best practices and real-world examples.
+Category: Programming
+Year Published: 2008
+
+Book Title: Penetration Testing
+Author: Georgia Weidman
+Description: A practical cybersecurity guide that teaches ethical hacking, vulnerability assessment, and penetration testing techniques using real-world tools and scenarios to identify and secure system weaknesses.
+Category: Ethical Hacking
+Year Published: 2014
+
+Book Title: Modern PHP
+Author: Josh Lockhart
+Description: Focuses on modern PHP practices such as object-oriented programming, security, testing, and Composer package management.
+Category: PHP Programming
+Year Published: 2014
+
+Book Title: Pride and Prejudice
+Author: Jane Austen
+Description: A classic romantic novel of manners that follows the turbulent relationship between Elizabeth Bennet and the wealthy Fitzwilliam Darcy as they navigate societal expectations, misunderstandings, and their own personal flaws.
+Category: Romance
+Year Published: 2010
+
+Book Title: The Pragmatic Programmer
+Author: Andrew Hunt
+Description: The Pragmatic Programmer is one of the most highly regarded books in software development. Rather than focusing on a specific programming language or framework, it provides timeless philosophy, practical advice, and technical habits designed to help developers write better code, solve problems effectively, and manage their careers.
+Category: Software Development
+Year Published: 2019
+
+Book Title: PHP 8 Basics
+Author: Gunnard Engebreth
+Description: Beginner-friendly guide covering modern PHP 8 features, web development, and frameworks like Laravel and Symfony.
+Category: Programming
+Year Published: 2023
+
+Book Title: Secure Coding in PHP
+Author: Chris Snyder
+Description: Teaches defensive PHP coding techniques to prevent common vulnerabilities and improve code safety.
+Category: Cybersecurity
+Year Published: 2022
+
+Book Title: Web Application Security
+Author: Andrew Hoffman
+Description: Focuses on modern web attacks, browser security, APIs, and defensive programming techniques.
+Category: Cybersecurity
+Year Published: 2025
+
+Book Title: Noli Me Tangere
+Author: Dr. José Rizal
+Description: Exposes corruption of Spanish colonial rule in the Philippines and the struggles of Filipinos under abusive friars and government.
+Category: History Fiction 
+Year Published: 1887

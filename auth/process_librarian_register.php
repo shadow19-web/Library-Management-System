@@ -33,20 +33,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     //check user string length
 
-    if (strlen($firstname) < 3) {
-        $_SESSION['error'] = "First name must be at least 3 characters long.";
+    if (strlen(decryptionData($firstname)) < 4) {
+        $_SESSION['error'] = "First name must be at least 4 characters long.";
         header("Location: ../public/librarianRegister.php");
         exit();
     }
 
-    if (strlen($lastname) < 3) {
-        $_SESSION['error'] = "Last name must be at least 3 characters long.";
+    if (strlen(decryptionData($lastname)) < 4) {
+        $_SESSION['error'] = "Last name must be at least 4 characters long.";
         header("Location: ../public/librarianRegister.php");
         exit();
     }
 
-    if (strlen($username) < 2) {
-        $_SESSION['error'] = "Username must be at least 2 characters long.";
+    if (strlen(decryptionData($username)) < 5) {
+        $_SESSION['error'] = "Username must be at least 5 characters long.";
         header("Location: ../public/librarianRegister.php");
         exit();
     }
